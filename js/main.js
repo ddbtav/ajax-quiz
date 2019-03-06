@@ -20,6 +20,8 @@ $(document).ready(
                 //After the data comes back, use this function
                     .done(
                         function (data) {
+                            $('#episodeList').empty();
+                            $('#name').empty();
                             $('#showsList').empty();
                             //Add the name
                             // $('#name').append(data.name);
