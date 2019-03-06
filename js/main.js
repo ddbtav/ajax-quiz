@@ -26,12 +26,12 @@ $(document).ready(
                             //Add the episodes
                             data.forEach(function (result) {
                                 $('#showsList').append('<tr>'+
-                                    '<td>' + result.show.name + '</td>' +
+                                    '<td class="show_name">' + result.show.name + '</td>' +
                                     '<td>' + result.show.genres[0] + '</td>' +
                                     '<td>' + result.show.officialSite + '</td>' +
                                     +' </tr>')
                             })
-                        })
+                        });
 
             // $.ajax('http://api.tvmaze.com/singlesearch/shows?q=' + search_string + '&embed=episodes', {
             //     method: "GET",
@@ -54,7 +54,13 @@ $(document).ready(
             //             })
             //         })
 
+            $('td.show_name').on(function(){
+                console.log($('td').innerText);
+            });
+
+
         });
+
 
     }
 )
