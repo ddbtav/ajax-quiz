@@ -33,37 +33,44 @@ $(document).ready(
                             })
 
 
-                            $('tr').bind("click", function (event) {
-                                console.log("Table row clicked");
-                                console.log("The mouse cursor is at (" +
-                                    event.pageX + ", " + event.pageY +
-                                    ")" );
-                                console.log(this.innerText);
+                            $('tr td.show_name').bind("click", function (event) {
+                                // console.log("Table row clicked");
+                                // console.log("The mouse cursor is at (" +
+                                //     event.pageX + ", " + event.pageY +
+                                //     ")" );
+                                // console.log(this.innerText);
+
+                                let show_clicked = this.innerText;
+                                console.log(show_clicked);
+
+                                $.ajax('http://api.tvmaze.com/singlesearch/shows?q=' + show_clicked + '&embed=episodes', {
+                                    method: "GET",
+                                    dataType: "json"
+                                })
+
+                                //After the data comes back, use this function
+                                    .done(
+                                        function (data) {
+                                            $('#episodeList').empty();
+                                            $('#name').empty();
+                                            //Add the name
+                                            $('#name').append(data.name);
+                                            //Add the episodes
+                                            data._embedded.episodes.forEach(function (episode) {
+                                                $('#episodeList').append('<tr>'+
+                                                    '<td>' + episode.season + '</td>' +
+                                                    '<td>' + episode.number + '</td>' +
+                                                    '<td>' + episode.name + '</td>' +
+                                                    '<td>' + episode.summary + '</td>' +
+                                                    +' </tr>')
+                                            })
+                                        })
+
                             })
 
 
                         });
 
-            // $.ajax('http://api.tvmaze.com/singlesearch/shows?q=' + search_string + '&embed=episodes', {
-            //     method: "GET",
-            //     dataType: "json"
-            // })
-            //
-            // //After the data comes back, use this function
-            //     .done(
-            //         function (data) {
-            //             //Add the name
-            //             $('#name').append(data.name);
-            //             //Add the episodes
-            //             data._embedded.episodes.forEach(function (episode) {
-            //                 $('#episodeList').append('<tr>'+
-            //                     '<td>' + episode.season + '</td>' +
-            //                     '<td>' + episode.number + '</td>' +
-            //                     '<td>' + episode.name + '</td>' +
-            //                     '<td>' + episode.summary + '</td>' +
-            //                     +' </tr>')
-            //             })
-            //         })
 
 
 
